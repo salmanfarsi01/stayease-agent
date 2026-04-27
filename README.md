@@ -25,6 +25,7 @@ graph TD
     API -->|"persist updated messages"| DB
     API -->|"JSON reply"| Guest
 ```
+<img width="1619" height="920" alt="image" src="https://github.com/user-attachments/assets/8ebec1a0-3e46-42d9-ab29-f6d8b2e5e597" />
 
 ---
 
@@ -205,6 +206,8 @@ num_guests: int        # 2
 ```
 
 ---
+<img width="1919" height="681" alt="image" src="https://github.com/user-attachments/assets/66fb73c2-b944-4faf-a631-7655c07bfd79" />
+
 
 ## 1.6 Database Schema
 
