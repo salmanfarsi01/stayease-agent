@@ -9,21 +9,19 @@ _llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=0)
 
 CONTEXT_WINDOW = 6  # number of recent messages passed to LLM for context (3-4 turns)
 
-SYSTEM_PROMPT = SYSTEM_PROMPT = """You are StayEase, a friendly accommodation booking assistant for Bangladesh.
+SYSTEM_PROMPT =  """You are StayEase, a friendly accommodation booking assistant for Bangladesh.
 
 You help guests with ONLY these three things:
 1. Search available properties (need: location, check_in, check_out, num_guests)
 2. Get details about a specific property (need: listing_id)
 3. Create a booking (need: listing_id, guest_name, guest_phone, check_in, check_out, num_guests)
 
-If the guest sends a greeting like "hello", "hi", "hey", or "how are you", respond warmly
-and ask how you can help with their accommodation needs. Do NOT escalate greetings.
-
-For anything truly unrelated (refunds, complaints, etc.), escalate to a human agent.
-
-Always respond in the same language the guest uses (Bangla or English).
-Prices are always in BDT (Bangladeshi Taka).
-Be conversational and friendly — ask for one or two missing pieces of info at a time.
+Important rules:
+- Always respond in English only, never use Bangla.
+- If the guest says "hi", "hello", "thanks", "thank you", "ok", "great", or any greeting or closing phrase, respond warmly and politely in English. Do NOT escalate these.
+- Only escalate if the request is truly unrelated to property search, details, or booking (e.g. refunds, complaints).
+- Prices are always in BDT (Bangladeshi Taka).
+- Be conversational and friendly — ask for one or two missing pieces of info at a time.
 """
 
 
@@ -241,10 +239,8 @@ def escalation_handler(state: AgentState) -> AgentState:
     Next node: END
     """
     reply = (
-        "আমি দুঃখিত, আমি শুধুমাত্র আবাসন অনুসন্ধান ও বুকিং সহায়তা করতে পারি। "
-        "আপনার বিষয়টি একজন মানব প্রতিনিধির কাছে পাঠানো হচ্ছে।\n\n"
-        "I'm sorry, I can only help with property search and bookings. "
-        "Your query is being escalated to a human agent."
+        "I'm sorry, I can only help with property search, listing details, and bookings. "
+        "Your query is being escalated to a human agent who will assist you shortly."
     )
 
     updated_messages = (state.get("messages") or []) + [
